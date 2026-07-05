@@ -57,15 +57,23 @@ export function TutorShell({
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 
+  const initials =
+    userName
+      .split(/\s+/)
+      .filter(Boolean)
+      .slice(0, 2)
+      .map((part) => part[0]?.toUpperCase() ?? "")
+      .join("") || "T";
+
   const sidebar = (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2 border-b border-edge-soft px-5 py-5">
         <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent-soft">
           <GraduationCap className="h-4.5 w-4.5 text-accent" size={18} />
         </span>
-        <span className="text-base font-bold tracking-tight text-ink">
+        <span className="font-display text-base font-bold tracking-tight text-ink">
           Lernova
-          <span className="ml-2 rounded-full bg-edge-soft px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider text-mute">
+          <span className="ml-2 rounded-full bg-accent-soft px-2 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-wider text-accent-deep">
             Tutor
           </span>
         </span>
@@ -83,11 +91,11 @@ export function TutorShell({
               className={cn(
                 "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                 active
-                  ? "bg-accent-soft text-ink"
-                  : "text-mute hover:bg-card hover:text-ink"
+                  ? "bg-accent-soft text-accent-deep"
+                  : "text-mute hover:bg-surface hover:text-ink"
               )}
             >
-              <Icon size={16} className={cn(active ? "text-accent" : "text-faint")} />
+              <Icon size={16} className={cn(active ? "text-accent-deep" : "text-faint")} />
               {item.label}
             </Link>
           );
@@ -95,10 +103,20 @@ export function TutorShell({
       </nav>
 
       <div className="border-t border-edge-soft px-4 py-4">
-        <p className="truncate text-sm font-medium text-ink" title={userName}>
-          {userName}
-        </p>
-        <p className="text-xs text-faint">Tutor:in</p>
+        <div className="flex items-center gap-3">
+          <span
+            aria-hidden
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-soft text-xs font-semibold text-accent-deep"
+          >
+            {initials}
+          </span>
+          <div className="min-w-0">
+            <p className="truncate text-sm font-medium text-ink" title={userName}>
+              {userName}
+            </p>
+            <p className="text-xs text-faint">Tutor:in</p>
+          </div>
+        </div>
         <button
           type="button"
           onClick={logout}
@@ -115,10 +133,10 @@ export function TutorShell({
   return (
     <div className="min-h-screen bg-base">
       {/* Mobile Topbar */}
-      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-edge-soft bg-surface/90 px-4 py-3 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-40 flex items-center justify-between border-b border-edge-soft bg-card/90 px-4 py-3 backdrop-blur lg:hidden">
         <div className="flex items-center gap-2">
           <GraduationCap size={18} className="text-accent" />
-          <span className="text-sm font-bold text-ink">Lernova Tutor</span>
+          <span className="font-display text-sm font-bold text-ink">Lernova Tutor</span>
         </div>
         <button
           type="button"
@@ -133,7 +151,7 @@ export function TutorShell({
       {/* Mobile Overlay */}
       {open ? (
         <div
-          className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+          className="fixed inset-0 z-40 bg-ink/20 lg:hidden"
           onClick={() => setOpen(false)}
         />
       ) : null}
@@ -141,8 +159,8 @@ export function TutorShell({
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 w-64 border-r border-edge-soft bg-surface transition-transform duration-200 lg:translate-x-0",
-          open ? "translate-x-0" : "-translate-x-full"
+          "fixed inset-y-0 left-0 z-50 w-64 border-r border-edge-soft bg-card transition-transform duration-200 lg:translate-x-0 lg:shadow-none",
+          open ? "translate-x-0 shadow-card-lg" : "-translate-x-full"
         )}
       >
         {sidebar}

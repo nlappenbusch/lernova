@@ -173,11 +173,11 @@ export function LeadForm({
 
   if (done) {
     return (
-      <div className="rounded-xl border border-edge-soft bg-card p-8 text-center sm:p-12">
-        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ok/10">
+      <div className="rounded-xl border border-edge-soft bg-card p-8 text-center shadow-card-lg sm:p-12">
+        <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-ok/10 ring-8 ring-ok/5">
           <CircleCheck className="h-8 w-8 text-ok" aria-hidden />
         </div>
-        <h2 className="mt-6 text-2xl font-bold tracking-tight text-ink">
+        <h2 className="mt-6 font-display text-2xl font-bold tracking-tight text-ink">
           Anfrage eingegangen — vielen Dank!
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-mute">
@@ -218,7 +218,7 @@ export function LeadForm({
   }
 
   return (
-    <div className="rounded-xl border border-edge-soft bg-card">
+    <div className="rounded-xl border border-edge-soft bg-card shadow-card-lg">
       {/* Fortschritt */}
       <div className="border-b border-edge-soft px-6 pb-5 pt-6">
         <div className="flex items-center justify-between gap-2">
@@ -230,7 +230,7 @@ export function LeadForm({
                   i < step
                     ? "bg-accent text-white"
                     : i === step
-                      ? "bg-accent-soft text-[#a5b0ff] ring-1 ring-accent/50"
+                      ? "bg-accent-soft text-accent-deep ring-1 ring-accent/40"
                       : "bg-surface text-faint"
                 )}
               >
@@ -434,7 +434,7 @@ export function LeadForm({
                     type="checkbox"
                     checked={data.privacy}
                     onChange={(e) => set("privacy", e.target.checked)}
-                    className="mt-0.5 h-4 w-4 accent-[#6d7cff]"
+                    className="mt-0.5 h-4 w-4 accent-accent"
                   />
                   <span className="text-xs leading-relaxed text-mute">
                     Ich habe die{" "}

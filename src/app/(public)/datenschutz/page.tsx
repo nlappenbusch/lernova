@@ -11,14 +11,21 @@ export const metadata: Metadata = {
 
 export default function DatenschutzPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
-      <h1 className="text-3xl font-bold tracking-tight text-ink">Datenschutzerklärung</h1>
-      <p className="mt-3 text-sm text-mute">
-        Kurz gesagt: Wir erheben nur, was wir für die Vermittlung und Abrechnung von Nachhilfe
-        brauchen — und geben nichts an Dritte weiter, die damit Werbung machen.
-      </p>
+    <>
+      <section className="hero-glow border-b border-edge-soft">
+        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">
+            Datenschutzerklärung
+          </h1>
+          <p className="mt-3 text-sm text-mute">
+            Kurz gesagt: Wir erheben nur, was wir für die Vermittlung und Abrechnung von Nachhilfe
+            brauchen — und geben nichts an Dritte weiter, die damit Werbung machen.
+          </p>
+        </div>
+      </section>
 
-      <div className="mt-10 space-y-10">
+      <div className="mx-auto max-w-3xl px-4 pb-14 sm:px-6 sm:pb-20">
+        <div className="mt-10 space-y-10">
         <section>
           <h2 className="text-base font-semibold text-ink">1. Verantwortliche Stelle</h2>
           <p className="mt-3 text-sm leading-relaxed text-mute">
@@ -113,7 +120,8 @@ export default function DatenschutzPage() {
             veröffentlichte Fassung. Stand: Juli 2026.
           </p>
         </section>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

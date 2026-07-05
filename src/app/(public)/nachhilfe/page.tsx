@@ -39,23 +39,42 @@ export default function NachhilfeHubPage() {
   );
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-      <div className="max-w-2xl">
-        <p className="text-xs font-semibold uppercase tracking-widest text-accent">Fächer</p>
-        <h1 className="mt-3 text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          Nachhilfe-Fächer im Überblick.
-        </h1>
-        <p className="mt-4 text-base leading-relaxed text-mute">
-          Wählen Sie ein Fach — auf der Fachseite finden Sie Stufen, Standorte und alles zum
-          Ablauf. Oder stellen Sie direkt eine Anfrage, wir kümmern uns um den Rest.
-        </p>
-      </div>
+    <>
+      <section className="hero-glow border-b border-edge-soft">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16">
+          <div className="max-w-2xl">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Fächer</p>
+            <h1 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Nachhilfe-Fächer im Überblick.
+            </h1>
+            <p className="mt-4 text-base leading-relaxed text-mute">
+              Wählen Sie ein Fach — auf der Fachseite finden Sie Stufen, Standorte und alles zum
+              Ablauf. Oder stellen Sie direkt eine Anfrage, wir kümmern uns um den Rest.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      {CATEGORIES.map((category) => {
+      <div className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20">
+        {CATEGORIES.map((category) => {
         const items = SUBJECTS.filter((s) => s.category === category.key);
+        const chipClass =
+          category.key === "ict"
+            ? "bg-accent-soft"
+            : category.key === "school"
+              ? "bg-accent2/10"
+              : "bg-warn/10";
+        const iconClass =
+          category.key === "ict"
+            ? "text-accent"
+            : category.key === "school"
+              ? "text-accent2"
+              : "text-warn";
         return (
           <section key={category.key} className="mt-14">
-            <h2 className="text-xl font-bold tracking-tight text-ink">{category.title}</h2>
+            <h2 className="font-display text-xl font-bold tracking-tight text-ink">
+              {category.title}
+            </h2>
             <p className="mt-1.5 max-w-2xl text-sm text-mute">{category.text}</p>
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((subject) => (
@@ -64,10 +83,12 @@ export default function NachhilfeHubPage() {
                   href={`/nachhilfe/${subject.slug}`}
                   className="group block h-full"
                 >
-                  <Card className="h-full p-5 transition-all duration-200 group-hover:border-accent/40 group-hover:bg-card-hover">
+                  <Card className="h-full p-5 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-accent/30 group-hover:shadow-card-lg">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-soft">
-                        <SubjectIcon slug={subject.slug} className="h-5 w-5 text-accent" />
+                      <div
+                        className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${chipClass}`}
+                      >
+                        <SubjectIcon slug={subject.slug} className={`h-5 w-5 ${iconClass}`} />
                       </div>
                       <div>
                         <h3 className="flex items-center gap-1.5 text-sm font-semibold text-ink">
@@ -88,37 +109,40 @@ export default function NachhilfeHubPage() {
         );
       })}
 
-      {/* Staedte-Cloud */}
-      <section className="mt-16 rounded-2xl border border-edge-soft bg-surface/40 p-6 sm:p-8">
-        <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-accent2" aria-hidden />
-          <h2 className="text-xl font-bold tracking-tight text-ink">
-            Nachhilfe in Ihrer Stadt
-          </h2>
-        </div>
-        <p className="mt-1.5 max-w-2xl text-sm text-mute">
-          Wir vermitteln lokal — hier eine Auswahl der meistgefragten Standorte. Ihre Gemeinde
-          fehlt? Kein Problem: Wir matchen über die PLZ im ganzen Umkreis.
-        </p>
-        <div className="mt-5 flex flex-wrap gap-2">
-          {cities.map((city) => (
-            <Link
-              key={city.slug}
-              href={`/nachhilfe/mathematik/sekundarschule/${city.slug}`}
-              className="rounded-full border border-edge bg-card px-4 py-2 text-sm text-mute transition-all hover:border-accent/40 hover:text-ink"
-            >
-              {city.name}
-            </Link>
-          ))}
-        </div>
-      </section>
+        {/* Staedte-Cloud */}
+        <section className="grid-pattern mt-16 rounded-2xl border border-edge-soft bg-card p-6 shadow-card sm:p-8">
+          <div className="flex items-center gap-2">
+            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent2/10">
+              <MapPin className="h-4 w-4 text-accent2" aria-hidden />
+            </span>
+            <h2 className="font-display text-xl font-bold tracking-tight text-ink">
+              Nachhilfe in Ihrer Stadt
+            </h2>
+          </div>
+          <p className="mt-3 max-w-2xl text-sm text-mute">
+            Wir vermitteln lokal — hier eine Auswahl der meistgefragten Standorte. Ihre Gemeinde
+            fehlt? Kein Problem: Wir matchen über die PLZ im ganzen Umkreis.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {cities.map((city) => (
+              <Link
+                key={city.slug}
+                href={`/nachhilfe/mathematik/sekundarschule/${city.slug}`}
+                className="rounded-full border border-edge bg-card px-4 py-2 text-sm text-mute shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-ink hover:shadow-card-lg"
+              >
+                {city.name}
+              </Link>
+            ))}
+          </div>
+        </section>
 
-      <div className="mt-14 text-center">
-        <ButtonLink href="/anfrage" size="lg">
-          Nachhilfe anfragen
-          <ArrowRight className="h-4 w-4" aria-hidden />
-        </ButtonLink>
+        <div className="mt-14 text-center">
+          <ButtonLink href="/anfrage" size="lg">
+            Nachhilfe anfragen
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </ButtonLink>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -106,7 +106,7 @@ export default function FuerTutorenPage() {
               <Sparkles className="h-3 w-3" aria-hidden />
               Wir suchen Tutor:innen in der ganzen Schweiz
             </Badge>
-            <h1 className="mt-6 text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl">
+            <h1 className="mt-6 font-display text-4xl font-bold leading-tight tracking-tight text-ink sm:text-5xl">
               Gib dein Wissen weiter — <span className="text-gradient">und verdiene fair dabei.</span>
             </h1>
             <p className="mt-5 text-base leading-relaxed text-mute sm:text-lg">
@@ -117,14 +117,14 @@ export default function FuerTutorenPage() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <a
                 href={mailto}
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent px-6 py-3 text-base font-medium text-white shadow-[0_0_20px_rgba(109,124,255,0.25)] transition-all duration-150 hover:bg-[#7d8aff] hover:shadow-[0_0_28px_rgba(109,124,255,0.4)]"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-accent px-6 py-3 text-base font-medium text-white shadow-sm shadow-accent/25 transition-all duration-150 hover:-translate-y-px hover:bg-accent-deep hover:shadow-md hover:shadow-accent/25"
               >
                 <Mail className="h-4 w-4" aria-hidden />
                 Jetzt bewerben
               </a>
               <a
                 href="#ablauf"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-edge px-6 py-3 text-base font-medium text-ink transition-all duration-150 hover:border-accent/50 hover:bg-accent-soft/40"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg border border-edge bg-card px-6 py-3 text-base font-medium text-ink shadow-sm transition-all duration-150 hover:border-accent/50 hover:bg-accent-soft/40"
               >
                 So läuft&rsquo;s ab
               </a>
@@ -136,12 +136,15 @@ export default function FuerTutorenPage() {
       {/* Benefits */}
       <section className="border-t border-edge-soft">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             Was du davon hast.
           </h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {BENEFITS.map((benefit) => (
-              <Card key={benefit.title} className="h-full p-5">
+              <Card
+                key={benefit.title}
+                className="h-full p-5 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-card-lg"
+              >
                 <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent2/10">
                   <benefit.icon className="h-5 w-5 text-accent2" aria-hidden />
                 </div>
@@ -154,16 +157,18 @@ export default function FuerTutorenPage() {
       </section>
 
       {/* Ablauf */}
-      <section id="ablauf" className="border-t border-edge-soft bg-surface/30">
+      <section id="ablauf" className="grid-pattern border-t border-edge-soft bg-card">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
-          <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+          <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
             Von der Bewerbung zur ersten Lektion.
           </h2>
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {STEPS.map((step) => (
+          <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((step, i) => (
               <div key={step.nr}>
-                <span className="text-gradient text-3xl font-bold tabular-nums">{step.nr}</span>
-                <h3 className="mt-2 text-sm font-semibold text-ink">{step.title}</h3>
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent-deep">
+                  {i + 1}
+                </div>
+                <h3 className="mt-4 text-sm font-semibold text-ink">{step.title}</h3>
                 <p className="mt-1.5 text-sm leading-relaxed text-mute">{step.text}</p>
               </div>
             ))}
@@ -176,7 +181,7 @@ export default function FuerTutorenPage() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20">
           <div className="grid gap-10 lg:grid-cols-2">
             <div>
-              <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+              <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
                 Was du mitbringst.
               </h2>
               <p className="mt-3 max-w-md text-sm leading-relaxed text-mute">
@@ -192,11 +197,11 @@ export default function FuerTutorenPage() {
                 ))}
               </ul>
             </div>
-            <Card className="flex h-full flex-col justify-center p-8">
+            <Card className="flex h-full flex-col justify-center p-8 shadow-card-lg">
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent-soft">
                 <GraduationCap className="h-6 w-6 text-accent" aria-hidden />
               </div>
-              <h3 className="mt-5 text-xl font-bold tracking-tight text-ink">
+              <h3 className="mt-5 font-display text-xl font-bold tracking-tight text-ink">
                 Bereit? Schreib uns.
               </h3>
               <p className="mt-2 text-sm leading-relaxed text-mute">
@@ -208,7 +213,7 @@ export default function FuerTutorenPage() {
               </p>
               <a
                 href={mailto}
-                className="mt-6 inline-flex items-center justify-center gap-2 self-start whitespace-nowrap rounded-lg bg-accent px-6 py-3 text-base font-medium text-white shadow-[0_0_20px_rgba(109,124,255,0.25)] transition-all duration-150 hover:bg-[#7d8aff] hover:shadow-[0_0_28px_rgba(109,124,255,0.4)]"
+                className="mt-6 inline-flex items-center justify-center gap-2 self-start whitespace-nowrap rounded-lg bg-accent px-6 py-3 text-base font-medium text-white shadow-sm shadow-accent/25 transition-all duration-150 hover:-translate-y-px hover:bg-accent-deep hover:shadow-md hover:shadow-accent/25"
               >
                 Bewerbung starten
                 <ArrowRight className="h-4 w-4" aria-hidden />

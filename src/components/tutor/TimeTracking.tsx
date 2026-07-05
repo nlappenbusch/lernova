@@ -182,16 +182,16 @@ export function TimeTracking({
         <CardBody className="flex items-center justify-between py-3">
           <Link
             href={`/tutor/stunden?year=${prev.year}&month=${prev.month}`}
-            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-mute transition-colors hover:bg-card-hover hover:text-ink"
+            className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-mute transition-colors hover:bg-surface hover:text-ink"
           >
             <ChevronLeft size={16} />
             Zurück
           </Link>
-          <span className="text-sm font-semibold text-ink">{monthLabel(year, month)}</span>
+          <span className="font-display text-sm font-semibold text-ink">{monthLabel(year, month)}</span>
           {canNext ? (
             <Link
               href={`/tutor/stunden?year=${next.year}&month=${next.month}`}
-              className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-mute transition-colors hover:bg-card-hover hover:text-ink"
+              className="flex items-center gap-1 rounded-lg px-3 py-1.5 text-sm text-mute transition-colors hover:bg-surface hover:text-ink"
             >
               Weiter
               <ChevronRight size={16} />
@@ -208,9 +208,14 @@ export function TimeTracking({
       {/* Monat geschlossen */}
       {closed ? (
         <Card className="border-warn/30 bg-warn/5">
-          <CardBody className="flex items-center gap-3 text-sm text-warn">
-            <Lock size={16} className="shrink-0" />
-            Monat abgeschlossen — Einträge gesperrt. Dieser Monat wurde bereits abgerechnet.
+          <CardBody className="flex items-start gap-3">
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-warn/10">
+              <Lock size={15} className="text-warn" />
+            </span>
+            <div>
+              <p className="text-sm font-semibold text-ink">Monat abgeschlossen — Einträge gesperrt</p>
+              <p className="mt-0.5 text-xs text-mute">Dieser Monat wurde bereits abgerechnet.</p>
+            </div>
           </CardBody>
         </Card>
       ) : contracts.length === 0 ? (
@@ -375,7 +380,7 @@ export function TimeTracking({
                         type="button"
                         onClick={() => startEdit(e)}
                         title="Bearbeiten"
-                        className="rounded-md p-1.5 text-mute transition-colors hover:bg-card-hover hover:text-ink"
+                        className="rounded-md p-1.5 text-mute transition-colors hover:bg-surface hover:text-ink"
                       >
                         <Pencil size={14} />
                       </button>

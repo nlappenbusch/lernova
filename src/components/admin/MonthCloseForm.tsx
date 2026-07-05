@@ -101,7 +101,7 @@ export function MonthCloseForm({ options }: { options: CloseableMonth[] }) {
           </div>
 
           {selected ? (
-            <div className="rounded-lg border border-edge-soft bg-surface px-4 py-3 text-xs text-mute">
+            <div className="rounded-xl border border-edge-soft bg-surface px-4 py-3 text-xs text-mute">
               <span className="font-medium text-ink">{selected.label}:</span>{" "}
               {selected.entries} nicht fakturierte Einträge · {minutesLabel(selected.minutes)} ·{" "}
               {selected.contracts} Verträge betroffen. Der Abschluss erzeugt pro Vertrag eine
@@ -112,13 +112,13 @@ export function MonthCloseForm({ options }: { options: CloseableMonth[] }) {
       ) : null}
 
       {error ? (
-        <div className="rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
+        <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
           {error}
         </div>
       ) : null}
 
       {result ? (
-        <div className="rounded-lg border border-ok/30 bg-ok/10 px-4 py-4">
+        <div className="rounded-xl border border-ok/30 bg-ok/10 px-4 py-4">
           <p className="flex items-center gap-2 text-sm font-semibold text-ok">
             <CheckCircle2 size={16} /> {resultLabel} erfolgreich abgeschlossen
           </p>

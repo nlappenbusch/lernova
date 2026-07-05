@@ -73,7 +73,9 @@ export default async function BewerbungenPage() {
                       <summary className="cursor-pointer text-xs text-accent hover:underline">
                         Anzeigen
                       </summary>
-                      <p className="mt-1 whitespace-pre-wrap text-xs leading-relaxed">{a.message}</p>
+                      <p className="mt-2 whitespace-pre-wrap rounded-lg border border-edge-soft bg-surface p-3 text-xs leading-relaxed text-mute">
+                        {a.message}
+                      </p>
                     </details>
                   ) : (
                     "—"

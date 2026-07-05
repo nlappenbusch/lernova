@@ -74,7 +74,9 @@ export default async function TutorDashboardPage() {
         <Card className="mb-6 border-accent/30 bg-accent-soft/30">
           <CardBody className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-start gap-3">
-              <MapPin size={18} className="mt-0.5 shrink-0 text-accent" />
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-accent-soft">
+                <MapPin size={17} className="text-accent-deep" />
+              </span>
               <div>
                 <p className="text-sm font-medium text-ink">Profil vervollständigen für Umkreissuche</p>
                 <p className="mt-0.5 text-xs text-mute">
@@ -172,7 +174,7 @@ export default async function TutorDashboardPage() {
               <Link
                 key={s.href}
                 href={s.href}
-                className="group flex items-center justify-between rounded-lg px-3 py-2.5 text-sm text-mute transition-colors hover:bg-card-hover hover:text-ink"
+                className="group flex items-center justify-between rounded-lg px-3 py-2.5 text-sm text-mute transition-colors hover:bg-surface hover:text-ink"
               >
                 {s.label}
                 <ArrowRight

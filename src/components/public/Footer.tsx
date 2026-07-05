@@ -23,12 +23,12 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-edge-soft bg-surface/40">
+    <footer className="border-t border-edge-soft bg-surface">
       <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           {/* Brand */}
           <div>
-            <Link href="/" className="text-lg font-bold tracking-tight text-ink">
+            <Link href="/" className="font-display text-lg font-bold tracking-tight text-ink">
               lernova<span className="text-accent">.ch</span>
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-mute">

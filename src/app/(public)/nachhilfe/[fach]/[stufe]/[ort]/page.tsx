@@ -160,40 +160,45 @@ export default async function LokaleLandingpage({ params }: Params) {
   ).slice(0, 6);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
+    <>
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={faqJsonLd} />
 
-      {/* Breadcrumb */}
-      <nav aria-label="Breadcrumb" className="flex flex-wrap items-center gap-1.5 text-xs text-faint">
-        <Link href="/nachhilfe" className="transition-colors hover:text-mute">
-          Nachhilfe
-        </Link>
-        <ChevronRight className="h-3 w-3" aria-hidden />
-        <Link href={`/nachhilfe/${subject.slug}`} className="transition-colors hover:text-mute">
-          {subject.name}
-        </Link>
-        <ChevronRight className="h-3 w-3" aria-hidden />
-        <Link
-          href={`/nachhilfe/${subject.slug}/${level.slug}`}
-          className="transition-colors hover:text-mute"
-        >
-          {level.name}
-        </Link>
-        <ChevronRight className="h-3 w-3" aria-hidden />
-        <span className="text-mute">{city.name}</span>
-      </nav>
+      <section className="hero-glow border-b border-edge-soft">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
+          {/* Breadcrumb */}
+          <nav
+            aria-label="Breadcrumb"
+            className="flex flex-wrap items-center gap-1.5 text-xs text-faint"
+          >
+            <Link href="/nachhilfe" className="transition-colors hover:text-mute">
+              Nachhilfe
+            </Link>
+            <ChevronRight className="h-3 w-3" aria-hidden />
+            <Link href={`/nachhilfe/${subject.slug}`} className="transition-colors hover:text-mute">
+              {subject.name}
+            </Link>
+            <ChevronRight className="h-3 w-3" aria-hidden />
+            <Link
+              href={`/nachhilfe/${subject.slug}/${level.slug}`}
+              className="transition-colors hover:text-mute"
+            >
+              {level.name}
+            </Link>
+            <ChevronRight className="h-3 w-3" aria-hidden />
+            <span className="text-mute">{city.name}</span>
+          </nav>
 
-      {/* Kopf + Intro */}
-      <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
-        <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent-soft">
-          <SubjectIcon slug={subject.slug} className="h-7 w-7 text-accent" />
-        </div>
-        <div className="max-w-3xl">
-          <h1 className="text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
-            {subject.name}-Nachhilfe für {level.name} in {city.name}
-          </h1>
+          {/* Kopf + Intro */}
+          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:items-start">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-accent-soft">
+              <SubjectIcon slug={subject.slug} className="h-7 w-7 text-accent" />
+            </div>
+            <div className="max-w-3xl">
+              <h1 className="font-display text-3xl font-bold leading-tight tracking-tight text-ink sm:text-4xl">
+                {subject.name}-Nachhilfe für {level.name} in {city.name}
+              </h1>
           <p className="mt-5 text-base leading-relaxed text-mute">
             {subject.blurb} In {city.name} vermitteln wir dafür Tutor:innen, die zu Ihnen nach
             Hause kommen — persönlich, geprüft und aus der Region.
@@ -208,21 +213,24 @@ export default async function LokaleLandingpage({ params }: Params) {
             Unterricht findet bei Ihnen vor Ort statt, die Abrechnung läuft transparent über eine
             monatliche Schweizer QR-Rechnung ({rate} pro Lektion à 60 Minuten).
           </p>
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ButtonLink href={anfrageUrl} size="lg">
-              Jetzt in {city.name} anfragen
-              <ArrowRight className="h-4 w-4" aria-hidden />
-            </ButtonLink>
-            <span className="text-xs text-faint">
-              Unverbindlich &amp; kostenlos — Antwort innert 24 Stunden
-            </span>
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <ButtonLink href={anfrageUrl} size="lg">
+                  Jetzt in {city.name} anfragen
+                  <ArrowRight className="h-4 w-4" aria-hidden />
+                </ButtonLink>
+                <span className="text-xs text-faint">
+                  Unverbindlich &amp; kostenlos — Antwort innert 24 Stunden
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
+      <div className="mx-auto max-w-6xl px-4 pb-14 sm:px-6 sm:pb-20">
       {/* Vorteile */}
-      <section className="mt-16">
-        <h2 className="text-xl font-bold tracking-tight text-ink">
+      <section className="mt-14">
+        <h2 className="font-display text-xl font-bold tracking-tight text-ink">
           Ihre Vorteile mit Lernova in {city.name}
         </h2>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -248,7 +256,10 @@ export default async function LokaleLandingpage({ params }: Params) {
               text: "Nach jeder Lektion wird festgehalten, was erarbeitet wurde — Sie sehen den Fortschritt schwarz auf weiss.",
             },
           ].map((item) => (
-            <Card key={item.title} className="flex items-start gap-4 p-5">
+            <Card
+              key={item.title}
+              className="flex items-start gap-4 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-lg"
+            >
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent-soft">
                 <item.icon className="h-5 w-5 text-accent" aria-hidden />
               </div>
@@ -262,8 +273,8 @@ export default async function LokaleLandingpage({ params }: Params) {
       </section>
 
       {/* Ablauf */}
-      <section className="mt-16 rounded-2xl border border-edge-soft bg-surface/40 p-6 sm:p-8">
-        <h2 className="text-xl font-bold tracking-tight text-ink">
+      <section className="grid-pattern mt-16 rounded-2xl border border-edge-soft bg-card p-6 shadow-card sm:p-8">
+        <h2 className="font-display text-xl font-bold tracking-tight text-ink">
           So starten Sie in {city.name}
         </h2>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
@@ -283,10 +294,12 @@ export default async function LokaleLandingpage({ params }: Params) {
               title: "Lernen & abrechnen",
               text: "Die erste Lektion findet bei Ihnen statt. Abgerechnet wird monatlich per QR-Rechnung — nur effektive Lektionen.",
             },
-          ].map((step) => (
+          ].map((step, i) => (
             <div key={step.nr}>
-              <span className="text-gradient text-3xl font-bold tabular-nums">{step.nr}</span>
-              <h3 className="mt-2 text-sm font-semibold text-ink">{step.title}</h3>
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent-deep">
+                {i + 1}
+              </div>
+              <h3 className="mt-3 text-sm font-semibold text-ink">{step.title}</h3>
               <p className="mt-1.5 text-sm leading-relaxed text-mute">{step.text}</p>
             </div>
           ))}
@@ -296,8 +309,10 @@ export default async function LokaleLandingpage({ params }: Params) {
       {/* Lokaler Bezug */}
       <section className="mt-16">
         <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-accent2" aria-hidden />
-          <h2 className="text-xl font-bold tracking-tight text-ink">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent2/10">
+            <MapPin className="h-4 w-4 text-accent2" aria-hidden />
+          </span>
+          <h2 className="font-display text-xl font-bold tracking-tight text-ink">
             Verwurzelt im Kanton {kanton}
           </h2>
         </div>
@@ -317,7 +332,7 @@ export default async function LokaleLandingpage({ params }: Params) {
                 <Link
                   key={c.slug}
                   href={`/nachhilfe/${subject.slug}/${level.slug}/${c.slug}`}
-                  className="rounded-full border border-edge bg-surface px-4 py-2 text-sm text-mute transition-all hover:border-accent/40 hover:text-ink"
+                  className="rounded-full border border-edge bg-card px-4 py-2 text-sm text-mute shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-ink hover:shadow-card-lg"
                 >
                   {c.name}
                 </Link>
@@ -335,7 +350,7 @@ export default async function LokaleLandingpage({ params }: Params) {
                 <Link
                   key={s.slug}
                   href={`/nachhilfe/${s.slug}/${level.slug}/${city.slug}`}
-                  className="rounded-full border border-edge bg-surface px-4 py-2 text-sm text-mute transition-all hover:border-accent/40 hover:text-ink"
+                  className="rounded-full border border-edge bg-card px-4 py-2 text-sm text-mute shadow-card transition-all hover:-translate-y-0.5 hover:border-accent/30 hover:text-ink hover:shadow-card-lg"
                 >
                   {s.name} in {city.name}
                 </Link>
@@ -347,7 +362,7 @@ export default async function LokaleLandingpage({ params }: Params) {
 
       {/* Mini-FAQ */}
       <section className="mt-16">
-        <h2 className="text-xl font-bold tracking-tight text-ink">
+        <h2 className="font-display text-xl font-bold tracking-tight text-ink">
           Häufige Fragen zu {subject.name}-Nachhilfe in {city.name}
         </h2>
         <div className="mt-6">
@@ -356,8 +371,8 @@ export default async function LokaleLandingpage({ params }: Params) {
       </section>
 
       {/* CTA */}
-      <div className="hero-glow mt-16 overflow-hidden rounded-2xl border border-edge p-8 text-center sm:p-12">
-        <h2 className="text-2xl font-bold tracking-tight text-ink sm:text-3xl">
+      <div className="hero-glow mt-16 overflow-hidden rounded-2xl border border-edge p-8 text-center shadow-card sm:p-12">
+        <h2 className="font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
           {subject.name}-Nachhilfe in {city.name} — <span className="text-gradient">jetzt starten.</span>
         </h2>
         <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-mute">
@@ -374,6 +389,7 @@ export default async function LokaleLandingpage({ params }: Params) {
           {rate} pro Lektion à 60 Minuten — keine versteckten Kosten
         </p>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

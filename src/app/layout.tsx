@@ -1,5 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { config } from "@/lib/config";
+import "@fontsource-variable/inter/index.css";
+import "@fontsource-variable/space-grotesk/index.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -17,9 +19,13 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#f6f7fb",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de-CH" className="dark">
+    <html lang="de-CH">
       <body className="min-h-screen bg-base text-ink antialiased">{children}</body>
     </html>
   );

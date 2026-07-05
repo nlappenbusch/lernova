@@ -92,7 +92,10 @@ export default async function PensumDetailPage({
                 <div>
                   <dt className="text-xs text-faint">E-Mail</dt>
                   <dd className="mt-0.5 text-mute">
-                    <a href={`mailto:${pensum.customerEmail}`} className="hover:text-ink">
+                    <a
+                      href={`mailto:${pensum.customerEmail}`}
+                      className="transition-colors hover:text-accent"
+                    >
                       {pensum.customerEmail}
                     </a>
                   </dd>

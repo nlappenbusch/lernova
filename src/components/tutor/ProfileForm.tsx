@@ -155,7 +155,7 @@ export function ProfileForm({
           <div className="sm:col-span-2">
             <div className="mb-1.5 flex items-center justify-between">
               <span className="text-xs font-medium text-mute">Standard-Radius für die Umkreissuche</span>
-              <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold tabular-nums text-accent">
+              <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold tabular-nums text-accent-deep">
                 {values.radiusKm} km
               </span>
             </div>

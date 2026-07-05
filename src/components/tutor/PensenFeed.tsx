@@ -153,7 +153,7 @@ export function PensenFeed({ defaultRadius }: { defaultRadius: number }) {
           <div className="min-w-0 flex-1">
             <div className="mb-1.5 flex items-center justify-between">
               <span className="text-xs font-medium text-mute">Umkreis</span>
-              <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold tabular-nums text-accent">
+              <span className="rounded-md bg-accent-soft px-2 py-0.5 text-xs font-semibold tabular-nums text-accent-deep">
                 {radius} km
               </span>
             </div>
@@ -238,7 +238,7 @@ export function PensenFeed({ defaultRadius }: { defaultRadius: number }) {
             const isNew = now - new Date(item.createdAt).getTime() < NEW_THRESHOLD_MS;
             const panelOpen = applyId === item.id;
             return (
-              <Card key={item.id} className="flex flex-col transition-colors hover:bg-card-hover">
+              <Card key={item.id} className="flex flex-col transition-shadow duration-150 hover:shadow-card-lg">
                 <CardBody className="flex flex-1 flex-col gap-3">
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge tone="accent">{item.subjectName}</Badge>

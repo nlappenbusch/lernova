@@ -18,11 +18,11 @@ const buttonBase =
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    "bg-accent text-white hover:bg-[#7d8aff] shadow-[0_0_20px_rgba(109,124,255,0.25)] hover:shadow-[0_0_28px_rgba(109,124,255,0.4)]",
-  secondary: "bg-card border border-edge text-ink hover:bg-card-hover hover:border-accent/40",
-  ghost: "text-mute hover:text-ink hover:bg-card",
-  danger: "bg-danger/10 border border-danger/30 text-danger hover:bg-danger/20",
-  outline: "border border-edge text-ink hover:border-accent/50 hover:bg-accent-soft/40",
+    "bg-accent text-white hover:bg-accent-deep shadow-sm shadow-accent/25 hover:shadow-md hover:shadow-accent/25 hover:-translate-y-px",
+  secondary: "bg-card border border-edge text-ink shadow-sm hover:bg-card-hover hover:border-accent/40",
+  ghost: "text-mute hover:text-ink hover:bg-surface",
+  danger: "bg-danger/10 border border-danger/25 text-danger hover:bg-danger/15",
+  outline: "border border-edge bg-card text-ink hover:border-accent/50 hover:bg-accent-soft/40",
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
@@ -72,7 +72,9 @@ export function ButtonLink({
 
 export function Card({ className, children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={cn("rounded-xl border border-edge-soft bg-card", className)}>{children}</div>
+    <div className={cn("rounded-xl border border-edge-soft bg-card shadow-card", className)}>
+      {children}
+    </div>
   );
 }
 
@@ -105,7 +107,7 @@ export function CardBody({ className, children }: { className?: string; children
 /* ---------- Form ---------- */
 
 const inputBase =
-  "w-full rounded-lg border border-edge bg-surface px-3 py-2 text-sm text-ink placeholder:text-faint transition-colors focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/40 disabled:opacity-50";
+  "w-full rounded-lg border border-edge bg-card px-3 py-2 text-sm text-ink shadow-sm placeholder:text-faint transition-colors focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-50 disabled:bg-surface";
 
 export function Input({ className, ...props }: InputHTMLAttributes<HTMLInputElement>) {
   return <input className={cn(inputBase, className)} {...props} />;
@@ -156,8 +158,8 @@ export function Field({
 type BadgeTone = "default" | "accent" | "ok" | "warn" | "danger" | "teal";
 
 const badgeTones: Record<BadgeTone, string> = {
-  default: "bg-edge-soft text-mute",
-  accent: "bg-accent-soft text-[#a5b0ff]",
+  default: "bg-surface text-mute border border-edge-soft",
+  accent: "bg-accent-soft text-accent-deep",
   ok: "bg-ok/10 text-ok",
   warn: "bg-warn/10 text-warn",
   danger: "bg-danger/10 text-danger",
@@ -210,7 +212,7 @@ export function StatusBadge({ status }: { status: string }) {
 
 export function Table({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn("overflow-x-auto rounded-xl border border-edge-soft", className)}>
+    <div className={cn("overflow-x-auto rounded-xl border border-edge-soft bg-card shadow-card", className)}>
       <table className="w-full text-sm">{children}</table>
     </div>
   );
@@ -254,7 +256,7 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
       <div>
-        <h1 className="text-xl font-bold tracking-tight text-ink">{title}</h1>
+        <h1 className="font-display text-xl font-bold tracking-tight text-ink">{title}</h1>
         {subtitle ? <p className="mt-1 text-sm text-mute">{subtitle}</p> : null}
       </div>
       {action ? <div>{action}</div> : null}

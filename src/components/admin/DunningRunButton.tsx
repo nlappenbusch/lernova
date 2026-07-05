@@ -51,13 +51,13 @@ export function DunningRunButton() {
       </Button>
 
       {error ? (
-        <div className="rounded-lg border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
+        <div className="rounded-xl border border-danger/30 bg-danger/10 px-4 py-3 text-sm text-danger">
           {error}
         </div>
       ) : null}
 
       {result ? (
-        <div className="rounded-lg border border-edge-soft bg-surface px-4 py-3">
+        <div className="rounded-xl border border-edge-soft bg-surface px-4 py-3">
           <p className="text-sm text-ink">
             <span className="font-semibold">{result.checkedInvoices}</span> Rechnungen geprüft,{" "}
             <span className="font-semibold">{result.dunningsSent.length}</span> Mahnungen

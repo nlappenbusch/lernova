@@ -212,7 +212,7 @@ export default async function VertragDetailPage({
                                 <summary className="cursor-pointer text-xs text-accent hover:underline">
                                   Notizen anzeigen
                                 </summary>
-                                <div className="mt-2">
+                                <div className="mt-2 rounded-lg border border-edge-soft bg-surface p-3">
                                   <Markdown>{e.notes}</Markdown>
                                 </div>
                               </details>

@@ -11,13 +11,18 @@ export const metadata: Metadata = {
 
 export default function ImpressumPage() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-14 sm:px-6 sm:py-20">
-      <h1 className="text-3xl font-bold tracking-tight text-ink">Impressum</h1>
+    <>
+      <section className="hero-glow border-b border-edge-soft">
+        <div className="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-16">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink">Impressum</h1>
+        </div>
+      </section>
 
-      <div className="mt-10 space-y-10">
+      <div className="mx-auto max-w-3xl px-4 pb-14 sm:px-6 sm:pb-20">
+        <div className="mt-10 space-y-10">
         <section>
           <h2 className="text-base font-semibold text-ink">Betreiberin dieser Website</h2>
-          <div className="mt-3 rounded-xl border border-edge-soft bg-card px-5 py-4 text-sm leading-relaxed text-mute">
+          <div className="mt-3 rounded-xl border border-edge-soft bg-card px-5 py-4 text-sm leading-relaxed text-mute shadow-card">
             <p className="font-medium text-ink">{config.company.name}</p>
             <p>{config.company.street}</p>
             <p>
@@ -78,7 +83,8 @@ export default function ImpressumPage() {
             schriftlichen Zustimmung der {config.company.name}.
           </p>
         </section>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

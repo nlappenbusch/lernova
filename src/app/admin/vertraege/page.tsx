@@ -62,7 +62,10 @@ export default async function VertraegePage() {
                 </TD>
                 <TD>{c.pensum.customerName}</TD>
                 <TD>
-                  <Link href={`/admin/tutoren/${c.tutor.id}`} className="hover:text-ink">
+                  <Link
+                    href={`/admin/tutoren/${c.tutor.id}`}
+                    className="text-ink transition-colors hover:text-accent"
+                  >
                     {c.tutor.name}
                   </Link>
                 </TD>

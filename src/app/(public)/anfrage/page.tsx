@@ -27,40 +27,42 @@ export default async function AnfragePage({ searchParams }: { searchParams: Sear
   const city = ortParam ? findBySlug(ortParam) : undefined;
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6 sm:py-20">
-      <div className="text-center">
-        <h1 className="text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-          Nachhilfe anfragen.
-        </h1>
-        <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-mute">
-          Drei kurze Schritte — unverbindlich und kostenlos. Wir melden uns innert 24 Stunden mit
-          einem konkreten Vorschlag.
-        </p>
-      </div>
+    <div className="hero-glow">
+      <div className="mx-auto max-w-2xl px-4 py-14 sm:px-6 sm:py-20">
+        <div className="text-center">
+          <h1 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+            Nachhilfe anfragen.
+          </h1>
+          <p className="mx-auto mt-3 max-w-lg text-sm leading-relaxed text-mute">
+            Drei kurze Schritte — unverbindlich und kostenlos. Wir melden uns innert 24 Stunden mit
+            einem konkreten Vorschlag.
+          </p>
+        </div>
 
-      <div className="mt-10">
-        <LeadForm
-          initialSubject={subject?.slug ?? ""}
-          initialLevel={level?.slug ?? ""}
-          initialPlz={city?.plz ?? ""}
-          initialCity={city?.name ?? ""}
-        />
-      </div>
+        <div className="mt-10">
+          <LeadForm
+            initialSubject={subject?.slug ?? ""}
+            initialLevel={level?.slug ?? ""}
+            initialPlz={city?.plz ?? ""}
+            initialCity={city?.name ?? ""}
+          />
+        </div>
 
-      <div className="mt-8 grid gap-3 sm:grid-cols-3">
-        {[
-          { icon: Clock, text: "Antwort innert 24 Stunden" },
-          { icon: ShieldCheck, text: "Geprüfte Tutor:innen" },
-          { icon: BadgeCheck, text: "Kein Abo, keine Gebühren" },
-        ].map((item) => (
-          <div
-            key={item.text}
-            className="flex items-center justify-center gap-2 rounded-lg border border-edge-soft bg-surface/50 px-3 py-2.5"
-          >
-            <item.icon className="h-4 w-4 shrink-0 text-accent2" aria-hidden />
-            <span className="text-xs text-mute">{item.text}</span>
-          </div>
-        ))}
+        <div className="mt-8 grid gap-3 sm:grid-cols-3">
+          {[
+            { icon: Clock, text: "Antwort innert 24 Stunden" },
+            { icon: ShieldCheck, text: "Geprüfte Tutor:innen" },
+            { icon: BadgeCheck, text: "Kein Abo, keine Gebühren" },
+          ].map((item) => (
+            <div
+              key={item.text}
+              className="flex items-center justify-center gap-2 rounded-lg border border-edge-soft bg-card px-3 py-2.5 shadow-card"
+            >
+              <item.icon className="h-4 w-4 shrink-0 text-accent2" aria-hidden />
+              <span className="text-xs text-mute">{item.text}</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

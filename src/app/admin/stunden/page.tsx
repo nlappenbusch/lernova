@@ -129,7 +129,7 @@ export default async function StundenPage({
                         <TD>
                           <Link
                             href={`/admin/vertraege/${e.contract.id}`}
-                            className="hover:text-ink"
+                            className="text-ink transition-colors hover:text-accent"
                           >
                             {getSubject(e.contract.pensum.subject)?.name ??
                               e.contract.pensum.subject}{" "}
@@ -146,7 +146,7 @@ export default async function StundenPage({
                               <summary className="cursor-pointer text-xs text-accent hover:underline">
                                 Notizen anzeigen
                               </summary>
-                              <div className="mt-2">
+                              <div className="mt-2 rounded-lg border border-edge-soft bg-surface p-3">
                                 <Markdown>{e.notes}</Markdown>
                               </div>
                             </details>

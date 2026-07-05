@@ -57,9 +57,11 @@ export function AdminShell({ userName, children }: { userName: string; children:
   }
 
   const brand = (
-    <span className="flex items-center gap-2">
-      <GraduationCap size={20} className="text-accent" />
-      <span className="font-bold tracking-tight text-ink">Lernova</span>
+    <span className="flex items-center gap-2.5">
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-soft">
+        <GraduationCap size={18} className="text-accent" />
+      </span>
+      <span className="font-display text-base font-bold tracking-tight text-ink">Lernova</span>
       <Badge tone="accent">Admin</Badge>
     </span>
   );
@@ -67,7 +69,7 @@ export function AdminShell({ userName, children }: { userName: string; children:
   return (
     <div className="min-h-screen lg:flex">
       {/* Mobile-Topbar */}
-      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-edge-soft bg-base/90 px-4 py-3 backdrop-blur lg:hidden">
+      <header className="sticky top-0 z-30 flex items-center justify-between border-b border-edge-soft bg-card/90 px-4 py-3 backdrop-blur lg:hidden">
         <Link href="/admin">{brand}</Link>
         <button
           type="button"
@@ -82,7 +84,7 @@ export function AdminShell({ userName, children }: { userName: string; children:
       {/* Mobile-Backdrop */}
       {open ? (
         <div
-          className="fixed inset-0 z-30 bg-black/60 lg:hidden"
+          className="fixed inset-0 z-30 bg-ink/20 lg:hidden"
           onClick={() => setOpen(false)}
           aria-hidden
         />
@@ -91,7 +93,7 @@ export function AdminShell({ userName, children }: { userName: string; children:
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 shrink-0 flex-col border-r border-edge-soft bg-surface transition-transform duration-200 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0",
+          "fixed inset-y-0 left-0 z-40 flex w-64 shrink-0 flex-col border-r border-edge-soft bg-card shadow-card-lg transition-transform duration-200 lg:sticky lg:top-0 lg:h-screen lg:translate-x-0 lg:shadow-none",
           open ? "translate-x-0" : "-translate-x-full"
         )}
       >
@@ -123,8 +125,8 @@ export function AdminShell({ userName, children }: { userName: string; children:
                 className={cn(
                   "flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition-colors",
                   active
-                    ? "bg-accent-soft font-medium text-ink"
-                    : "text-mute hover:bg-card hover:text-ink"
+                    ? "bg-accent-soft font-medium text-accent-deep"
+                    : "text-mute hover:bg-surface hover:text-ink"
                 )}
               >
                 <Icon size={16} className={active ? "text-accent" : "text-faint"} />
@@ -140,7 +142,7 @@ export function AdminShell({ userName, children }: { userName: string; children:
             type="button"
             onClick={logout}
             disabled={loggingOut}
-            className="mt-1.5 flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs text-mute transition-colors hover:bg-card hover:text-ink disabled:opacity-50"
+            className="mt-1.5 flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-xs text-mute transition-colors hover:bg-surface hover:text-ink disabled:opacity-50"
           >
             <LogOut size={14} />
             {loggingOut ? "Wird abgemeldet…" : "Abmelden"}

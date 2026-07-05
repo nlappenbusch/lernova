@@ -43,13 +43,13 @@ export function TutorActiveToggle({ tutorId, active }: { tutorId: string; active
         onClick={toggle}
         disabled={loading}
         className={cn(
-          "relative h-5 w-9 rounded-full transition-colors disabled:opacity-50",
+          "relative h-5 w-9 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:opacity-50",
           active ? "bg-ok" : "bg-edge"
         )}
       >
         <span
           className={cn(
-            "absolute top-0.5 left-0 h-4 w-4 rounded-full bg-white transition-transform",
+            "absolute top-0.5 left-0 h-4 w-4 rounded-full bg-white shadow-sm transition-transform",
             active ? "translate-x-[18px]" : "translate-x-0.5"
           )}
         />

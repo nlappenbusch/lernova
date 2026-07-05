@@ -90,11 +90,18 @@ lessonsPerWeek, preferredTimes. rateCustomer ist für Tutoren tabu.
 - Input-Validierung mit zod (v4): `z.object({...}).safeParse(body)`
 - Mutationen von Client-Komponenten via `fetch` + `router.refresh()`
 
-## Design-System (dark-first, Niveau Vercel/Linear)
-- Tokens (Tailwind-Klassen): `bg-base` (Seite), `bg-surface` (Inputs/Thead), `bg-card` /
-  `bg-card-hover`, `border-edge` / `border-edge-soft`, `text-ink` (primär), `text-mute`,
-  `text-faint`, Akzente: `accent` (#6d7cff), `accent2` (teal), `accent-soft`, `ok`, `warn`, `danger`
-- Utility-CSS: `.hero-glow` (Radial-Glow), `.text-gradient`, `.grid-pattern`, `.prose-notes`
+## Design-System (LIGHT-first, Premium — Niveau Stripe/Linear Light)
+- Heller Look: Seite `bg-base` (#f6f7fb), Karten weiss (`bg-card`) mit `shadow-card`,
+  Sektionen/Inputs-Tint `bg-surface`, Linien `border-edge`/`border-edge-soft`.
+- Text: `text-ink` (#101322), `text-mute`, `text-faint`. Akzente: `accent` (#4f46e5 Indigo),
+  `accent-deep` (Hover), `accent-soft` (Wash für Chips/Icon-Hintergründe), `accent2` (Teal),
+  `ok`, `warn`, `danger`.
+- Typografie: Body = Inter Variable (Default). Grosse Headlines mit Klasse `font-display`
+  (Space Grotesk). KEINE Neon-Glows/dunklen Gradients mehr — weiche Schatten
+  (`shadow-card`, `shadow-card-lg`), Pastell-Glows (`.hero-glow`).
+- Utility-CSS: `.hero-glow` (heller Verlauf + Pastell-Radials), `.text-gradient`
+  (Indigo→Violett→Teal, lesbar auf hell), `.grid-pattern`, `.shadow-card`, `.shadow-card-lg`,
+  `.font-display`, `.prose-notes`
 - UI-Kit `@/components/ui`: `cn, Button, ButtonLink, Card, CardHeader, CardBody, Input,
   Textarea, Select, Label, Field, Badge, StatusBadge, Table, THead, TH, TBody, TR, TD,
   PageHeader, StatCard, EmptyState, Divider` — IMMER verwenden, keine Parallel-Kits bauen.
