@@ -3,8 +3,9 @@
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { GraduationCap, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button, Card, Field, Input } from "@/components/ui";
+import { Logo, LogoMark } from "@/components/Logo";
 
 function LoginForm() {
   const router = useRouter();
@@ -42,10 +43,10 @@ function LoginForm() {
   return (
     <Card className="w-full max-w-sm p-8">
       <div className="mb-6 flex flex-col items-center text-center">
-        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-accent-soft">
-          <GraduationCap className="h-6 w-6 text-accent" />
+        <div className="mb-3">
+          <LogoMark size={44} />
         </div>
-        <h1 className="text-lg font-bold">Willkommen zurück</h1>
+        <h1 className="font-display text-lg font-bold">Willkommen zurück</h1>
         <p className="mt-1 text-xs text-mute">
           Login für Tutor:innen und Administration
         </p>
@@ -100,11 +101,8 @@ export default function LoginPage() {
   return (
     <main className="hero-glow flex min-h-screen items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <Link
-          href="/"
-          className="mb-6 block text-center text-sm font-bold tracking-tight text-mute transition-colors hover:text-ink"
-        >
-          ← lernova<span className="text-accent">.ch</span>
+        <Link href="/" className="mb-6 flex justify-center opacity-90 transition-opacity hover:opacity-100">
+          <Logo size={24} />
         </Link>
         <Suspense>
           <LoginForm />

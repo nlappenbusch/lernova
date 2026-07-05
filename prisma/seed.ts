@@ -276,6 +276,7 @@ async function main() {
         rateCustomer: p.rateCustomer ?? 7500,
         rateTutor: p.rateTutor ?? 4500,
         status: "OPEN",
+        pipeline: "PUBLISHED",
         createdAt: daysAgo(Math.floor(Math.random() * 14) + 1),
       },
     });
@@ -325,6 +326,7 @@ async function main() {
         rateCustomer: 7500,
         rateTutor: 4500,
         status: "MATCHED",
+        pipeline: "MATCHED",
         createdAt: daysAgo(opts.startDaysAgo + 7),
       },
     });

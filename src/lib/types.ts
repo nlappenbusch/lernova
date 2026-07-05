@@ -6,6 +6,26 @@ export type Role = (typeof ROLES)[number];
 export const PENSUM_STATUS = ["OPEN", "MATCHED", "CLOSED", "CANCELLED"] as const;
 export type PensumStatus = (typeof PENSUM_STATUS)[number];
 
+// Lead-CRM-Pipeline (Admin-Sicht auf Pensen)
+export const PIPELINE_STAGES = [
+  "NEW",
+  "CONTACTED",
+  "QUALIFIED",
+  "PUBLISHED",
+  "MATCHED",
+  "LOST",
+] as const;
+export type PipelineStage = (typeof PIPELINE_STAGES)[number];
+
+export const PIPELINE_LABELS: Record<PipelineStage, string> = {
+  NEW: "Neu",
+  CONTACTED: "Kontaktiert",
+  QUALIFIED: "Qualifiziert",
+  PUBLISHED: "Ausgeschrieben",
+  MATCHED: "Vermittelt",
+  LOST: "Verloren",
+};
+
 export const APPLICATION_STATUS = ["PENDING", "ACCEPTED", "REJECTED", "WITHDRAWN"] as const;
 export type ApplicationStatus = (typeof APPLICATION_STATUS)[number];
 

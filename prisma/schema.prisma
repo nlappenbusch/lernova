@@ -36,11 +36,12 @@ model User {
   timeEntries  TimeEntry[]
   payouts      Payout[]
   monthCloses  MonthClose[]
+  crmNotes     CrmNote[]
 }
 
 // Ein "Pensum" = offene Nachhilfe-Anfrage (Lead) eines Kunden.
 model Pensum {
-  id             String   @id @default(cuid())
+  id             String    @id @default(cuid())
   subject        String // Subject-Slug (src/lib/subjects.ts)
   level          String // lernende | sekundarschule | gymnasium | studierende | erwachsene
   description    String
@@ -52,17 +53,48 @@ model Pensum {
   city           String
   lat            Float?
   lng            Float?
-  lessonsPerWeek Int      @default(1)
+  lessonsPerWeek Int       @default(1)
   preferredTimes String?
   rateCustomer   Int // Rappen pro 60 Minuten
   rateTutor      Int // Rappen pro 60 Minuten
-  status         String   @default("OPEN") // OPEN | MATCHED | CLOSED | CANCELLED
-  source         String   @default("web")
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  status         String    @default("OPEN") // OPEN | MATCHED | CLOSED | CANCELLED
+  source         String    @default("web")
+  // --- Lead-CRM ---
+  pipeline       String    @default("NEW") // NEW | CONTACTED | QUALIFIED | PUBLISHED | MATCHED | LOST
+  followUpAt     DateTime?
+  // --- ICT-Kontext (optional, src/lib/ict.ts) ---
+  moduleCode     String? // z.B. "320"
+  profession     String? // Beruf-Slug, z.B. "informatiker-efz-applikationsentwicklung"
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
   applications Application[]
   contract     Contract?
+  crmNotes     CrmNote[]
+
+  @@index([pipeline])
+}
+
+// CRM-Notizen des Admins zu einem Lead/Pensum.
+model CrmNote {
+  id        String   @id @default(cuid())
+  pensumId  String
+  authorId  String
+  text      String
+  createdAt DateTime @default(now())
+
+  pensum Pensum @relation(fields: [pensumId], references: [id], onDelete: Cascade)
+  author User   @relation(fields: [authorId], references: [id])
+
+  @@index([pensumId])
+}
+
+// Plattform-Einstellungen (Super-Admin, Overlay ueber ENV-Defaults).
+// value = JSON pro Sektion (key: "company" | "billing" | "smtp" | "brand").
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
 }
 
 model Application {

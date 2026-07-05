@@ -203,6 +203,12 @@ export function StatusBadge({ status }: { status: string }) {
     ACTIVE: { label: "Aktiv", tone: "ok" },
     ENDED: { label: "Beendet", tone: "default" },
     PAID: { label: "Bezahlt", tone: "ok" },
+    // Lead-CRM-Pipeline
+    NEW: { label: "Neu", tone: "accent" },
+    CONTACTED: { label: "Kontaktiert", tone: "teal" },
+    QUALIFIED: { label: "Qualifiziert", tone: "warn" },
+    PUBLISHED: { label: "Ausgeschrieben", tone: "accent" },
+    LOST: { label: "Verloren", tone: "danger" },
   };
   const entry = map[status] ?? { label: status, tone: "default" as BadgeTone };
   return <Badge tone={entry.tone}>{entry.label}</Badge>;

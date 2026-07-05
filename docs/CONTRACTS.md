@@ -70,6 +70,35 @@ Admin-UI darf diese Funktionen importieren und aufrufen (z. B. Monatsabschluss-B
 → eigene API-Route → `closeMonth(...)`). PDF-Download-Route `/api/admin/invoices/[id]/pdf`
 gehört der Billing-Engine.
 
+## Lead-CRM & Plattform-Settings (Ausbau-Runde 07/2026)
+- **Pensum** hat neu: `pipeline` (NEW|CONTACTED|QUALIFIED|PUBLISHED|MATCHED|LOST — Konstanten
+  `PIPELINE_STAGES`/`PIPELINE_LABELS` in `@/lib/types`), `followUpAt` (DateTime?),
+  `moduleCode` (String?, z.B. "320"), `profession` (String?, Beruf-Slug). `StatusBadge`
+  aus dem UI-Kit kennt die Pipeline-Stufen bereits.
+- **CrmNote**: Admin-Notizen pro Pensum (pensumId, authorId, text, createdAt).
+- **Setting**: key-value (JSON) pro Sektion `company|billing|smtp|brand`.
+- **`@/lib/settings`** (fertig, NUTZEN): `getEffectiveConfig()` (async; ENV-Defaults + DB-Overlay,
+  10s-Cache), `saveSettings(patch)`, `getRawSettings()`, `invalidateSettingsCache()`.
+  REGEL: Ueberall wo Firma/QR-IBAN/Raten/SMTP/Brand fachlich verwendet werden (Billing, Mails,
+  Preisanzeigen), `await getEffectiveConfig()` statt `config` benutzen. `config` bleibt fuer
+  sessionSecret/cronSecret/baseUrl und als Fallback.
+- **Logo**: `@/components/Logo` exportiert `Logo` (Mark+Wortmarke) und `LogoMark` — ueberall
+  verwenden (Navbar, Footer, Shells), keine eigenen Wortmarken mehr.
+
+## ICT-Katalog-Kontrakt (`src/lib/ict.ts` — erstellt vom Public-Agent, Signaturen FIX)
+```ts
+export type IctModule = { code: string; title: string; year?: number; type: "BFS" | "UK";
+  professions: string[]; summary?: string; pitfalls?: string; subjects?: string[] };
+export type IctProfession = { slug: string; name: string; short: string; description: string;
+  durationYears: number; direction?: string; qv: string; nextSteps: string[];
+  modulesByYear: Record<number, string[]> };
+export const ICT_PROFESSIONS: IctProfession[];
+export const ICT_MODULES: IctModule[];
+export function getProfession(slug: string): IctProfession | undefined;
+export function getModule(code: string): IctModule | undefined;
+```
+Andere Agenten duerfen `getModule`/`getProfession` importieren (z.B. Admin-CRM zeigt Modul-Titel).
+
 ## Auth / Login (fertig — nicht anfassen)
 - `POST /api/auth/login {email, password}` → setzt Cookie, antwortet `{ok, redirect}`
 - `POST /api/auth/logout`
