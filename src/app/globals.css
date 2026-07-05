@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark-first Design-Tokens */
+  --color-base: #07080d;
+  --color-surface: #0d0f17;
+  --color-card: #12141f;
+  --color-card-hover: #171a28;
+  --color-edge: #23263a;
+  --color-edge-soft: #1a1d2e;
+  --color-ink: #edeef6;
+  --color-mute: #9298ad;
+  --color-faint: #5c6178;
+  --color-accent: #6d7cff;
+  --color-accent-soft: #232848;
+  --color-accent2: #2dd4bf;
+  --color-ok: #34d399;
+  --color-warn: #fbbf24;
+  --color-danger: #f87171;
+
+  --font-sans: "Inter", "Segoe UI", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", ui-monospace, "Consolas", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-base);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Dezente Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-edge) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-edge);
+  border-radius: 4px;
+}
+
+/* Hintergrund-Glow fuer Hero-Sektionen */
+.hero-glow {
+  background:
+    radial-gradient(600px 300px at 20% 0%, rgba(109, 124, 255, 0.16), transparent 70%),
+    radial-gradient(500px 260px at 80% 10%, rgba(45, 212, 191, 0.1), transparent 70%);
+}
+
+.text-gradient {
+  background: linear-gradient(100deg, #a5b4fc 0%, #6d7cff 45%, #2dd4bf 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Grid-Muster fuer Sektionen */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+/* Markdown-Rendering (Session-Notizen) */
+.prose-notes {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--color-mute);
+}
+.prose-notes h1,
+.prose-notes h2,
+.prose-notes h3 {
+  color: var(--color-ink);
+  font-weight: 600;
+  margin: 0.5rem 0 0.25rem;
+  font-size: 0.9rem;
+}
+.prose-notes p {
+  margin: 0.25rem 0;
+}
+.prose-notes ul,
+.prose-notes ol {
+  margin: 0.25rem 0 0.25rem 1.25rem;
+}
+.prose-notes ul {
+  list-style: disc;
+}
+.prose-notes ol {
+  list-style: decimal;
+}
+.prose-notes li {
+  margin: 0.125rem 0;
+}
+.prose-notes strong {
+  color: var(--color-ink);
+  font-weight: 600;
+}
+.prose-notes code {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  background: var(--color-edge-soft);
+  color: var(--color-accent2);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+.prose-notes pre {
+  background: var(--color-surface);
+  border: 1px solid var(--color-edge-soft);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  overflow-x: auto;
+  margin: 0.4rem 0;
+}
+.prose-notes pre code {
+  background: transparent;
+  padding: 0;
+  color: var(--color-ink);
+}
+.prose-notes a {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+.prose-notes blockquote {
+  border-left: 2px solid var(--color-edge);
+  padding-left: 0.75rem;
+  margin: 0.4rem 0;
+}

@@ -1,0 +1,210 @@
+// Lernova — Tutoring Management System Schweiz
+// SQLite fuer Dev (Default), Postgres-ready: keine SQLite-Spezifika,
+// String-Felder statt Enums (Werte-Kontrakte in src/lib/types.ts).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  role         String // ADMIN | TUTOR
+  name         String
+  phone        String?
+  street       String?
+  plz          String?
+  city         String?
+  lat          Float?
+  lng          Float?
+  radiusKm     Int      @default(20)
+  subjects     String   @default("[]") // JSON: string[] von Subject-Slugs
+  bio          String?
+  iban         String? // Auszahlungskonto Tutor
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  applications Application[]
+  contracts    Contract[]
+  timeEntries  TimeEntry[]
+  payouts      Payout[]
+  monthCloses  MonthClose[]
+}
+
+// Ein "Pensum" = offene Nachhilfe-Anfrage (Lead) eines Kunden.
+model Pensum {
+  id             String   @id @default(cuid())
+  subject        String // Subject-Slug (src/lib/subjects.ts)
+  level          String // lernende | sekundarschule | gymnasium | studierende | erwachsene
+  description    String
+  customerName   String
+  customerEmail  String
+  customerPhone  String?
+  street         String?
+  plz            String
+  city           String
+  lat            Float?
+  lng            Float?
+  lessonsPerWeek Int      @default(1)
+  preferredTimes String?
+  rateCustomer   Int // Rappen pro 60 Minuten
+  rateTutor      Int // Rappen pro 60 Minuten
+  status         String   @default("OPEN") // OPEN | MATCHED | CLOSED | CANCELLED
+  source         String   @default("web")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  applications Application[]
+  contract     Contract?
+}
+
+model Application {
+  id        String   @id @default(cuid())
+  pensumId  String
+  tutorId   String
+  message   String
+  status    String   @default("PENDING") // PENDING | ACCEPTED | REJECTED | WITHDRAWN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pensum Pensum @relation(fields: [pensumId], references: [id], onDelete: Cascade)
+  tutor  User   @relation(fields: [tutorId], references: [id], onDelete: Cascade)
+
+  @@unique([pensumId, tutorId])
+  @@index([tutorId])
+}
+
+model Contract {
+  id           String    @id @default(cuid())
+  pensumId     String    @unique
+  tutorId      String
+  rateCustomer Int // Rappen pro 60 Minuten
+  rateTutor    Int // Rappen pro 60 Minuten
+  startDate    DateTime  @default(now())
+  endDate      DateTime?
+  status       String    @default("ACTIVE") // ACTIVE | ENDED
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  pensum      Pensum      @relation(fields: [pensumId], references: [id])
+  tutor       User        @relation(fields: [tutorId], references: [id])
+  timeEntries TimeEntry[]
+  invoices    Invoice[]
+
+  @@index([tutorId])
+}
+
+model TimeEntry {
+  id         String   @id @default(cuid())
+  contractId String
+  tutorId    String
+  date       DateTime
+  minutes    Int
+  notes      String   @default("") // Markdown
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  contract    Contract     @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  tutor       User         @relation(fields: [tutorId], references: [id])
+  invoiceItem InvoiceItem?
+
+  @@index([tutorId])
+  @@index([contractId])
+}
+
+// Administrativer Monatsabschluss: danach sind TimeEntries des Monats gesperrt.
+model MonthClose {
+  id         String   @id @default(cuid())
+  year       Int
+  month      Int // 1-12
+  closedAt   DateTime @default(now())
+  closedById String
+
+  closedBy User @relation(fields: [closedById], references: [id])
+
+  @@unique([year, month])
+}
+
+model Invoice {
+  id         String    @id @default(cuid())
+  number     String    @unique // z.B. 2026-0042
+  contractId String
+  year       Int
+  month      Int
+  amount     Int // Rappen
+  currency   String    @default("CHF")
+  reference  String // Swiss QR-Referenz (QRR, 27 Stellen)
+  issueDate  DateTime  @default(now())
+  dueDate    DateTime
+  status     String    @default("OPEN") // OPEN | PAID | CANCELLED
+  paidAt     DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  contract Contract      @relation(fields: [contractId], references: [id])
+  items    InvoiceItem[]
+  dunnings Dunning[]
+
+  @@unique([contractId, year, month])
+  @@index([status])
+}
+
+model InvoiceItem {
+  id          String   @id @default(cuid())
+  invoiceId   String
+  timeEntryId String?  @unique
+  date        DateTime
+  description String
+  minutes     Int
+  rate        Int // Rappen pro 60 Minuten
+  amount      Int // Rappen
+
+  invoice   Invoice    @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+  timeEntry TimeEntry? @relation(fields: [timeEntryId], references: [id])
+}
+
+model Dunning {
+  id        String   @id @default(cuid())
+  invoiceId String
+  level     Int // 1 | 2 | 3
+  sentAt    DateTime @default(now())
+
+  invoice Invoice @relation(fields: [invoiceId], references: [id], onDelete: Cascade)
+
+  @@unique([invoiceId, level])
+}
+
+// Monatliche Tutoren-Auszahlung (beim Monatsabschluss erzeugt).
+model Payout {
+  id        String    @id @default(cuid())
+  tutorId   String
+  year      Int
+  month     Int
+  minutes   Int
+  amount    Int // Rappen
+  status    String    @default("PENDING") // PENDING | PAID
+  paidAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  tutor User @relation(fields: [tutorId], references: [id])
+
+  @@unique([tutorId, year, month])
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  body      String
+  kind      String // invoice | dunning-1 | dunning-2 | dunning-3 | lead-confirm | application-accepted | ...
+  ok        Boolean  @default(true)
+  error     String?
+  createdAt DateTime @default(now())
+}
