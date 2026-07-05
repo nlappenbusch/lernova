@@ -5,6 +5,8 @@
 //
 // Aufruf: npx tsx scripts/e2e-api.ts
 
+export {};
+
 const BASE = "http://localhost:3210";
 
 let passed = 0;

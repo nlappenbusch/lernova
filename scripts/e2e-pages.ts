@@ -2,6 +2,8 @@
 // Sessions und prueft Kern-Inhalte + Seiten-Guards (Redirects).
 // Aufruf: npx tsx scripts/e2e-pages.ts
 
+export {};
+
 const BASE = "http://localhost:3210";
 
 let passed = 0;
