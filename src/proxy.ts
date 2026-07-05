@@ -7,7 +7,7 @@ const SESSION_COOKIE = "lernova_session";
  * Die kryptografische Verifikation + Rollenpruefung passiert serverseitig in
  * den Layouts (requirePageUser) und API-Routen (requireApiUser).
  */
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const token = request.cookies.get(SESSION_COOKIE)?.value;
   if (!token) {
     const login = new URL("/login", request.url);
