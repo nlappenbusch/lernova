@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: lernova-app
+    restart: unless-stopped
+    ports:
+      - "3210:3210"
+    environment:
+      - DATABASE_URL=file:/app/prisma/data/prod.db
+      - SESSION_SECRET=${SESSION_SECRET:-bitte-in-env-setzen}
+      - CRON_SECRET=${CRON_SECRET:-bitte-in-env-setzen}
+      - BASE_URL=${BASE_URL:-http://localhost:3210}
+      - COMPANY_NAME=${COMPANY_NAME:-Lernova GmbH}
+      - COMPANY_QR_IBAN=${COMPANY_QR_IBAN:-CH4431999123000889012}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASS=${SMTP_PASS:-}
+      - SMTP_FROM=${SMTP_FROM:-Lernova <no-reply@lernova.ch>}
+    volumes:
+      - ./prisma-data:/app/prisma/data
+      - ./data:/app/data
