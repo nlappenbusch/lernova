@@ -1,7 +1,14 @@
 // Tutor-Dashboard: Kennzahlen, letzte Zeiteinträge, nächste Schritte.
 
 import Link from "next/link";
-import { ArrowRight, MapPin } from "lucide-react";
+import {
+  ArrowRight,
+  BriefcaseBusiness,
+  MapPin,
+  Sparkles,
+  TimerReset,
+  Users,
+} from "lucide-react";
 import { requirePageUser } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { withinRadius } from "@/lib/geo";
@@ -65,10 +72,31 @@ export default async function TutorDashboardPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Dashboard"
-        subtitle={`Willkommen zurück, ${firstName} — dein Überblick für ${monthLabel(year, month)}.`}
-      />
+      <div className="mb-6 overflow-hidden rounded-2xl border border-edge-soft bg-gradient-to-br from-violet-50 via-white to-emerald-50 p-5 shadow-card md:p-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-violet-200 bg-violet-100 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-violet-700">
+              <Sparkles className="h-3.5 w-3.5" />
+              Tutor Workspace
+            </div>
+            <h1 className="font-display text-2xl font-bold text-ink md:text-3xl">
+              Willkommen zurück, {firstName}
+            </h1>
+            <p className="mt-2 text-sm text-mute">
+              Dein Überblick für {monthLabel(year, month)} — inklusive Stunden, Einnahmen und neuer Match-Opportunität.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap gap-2">
+            <ButtonLink href="/tutor/stunden" variant="secondary" size="sm">
+              <TimerReset size={14} /> Stunden erfassen
+            </ButtonLink>
+            <ButtonLink href="/tutor/pensen" variant="secondary" size="sm">
+              <BriefcaseBusiness size={14} /> Offene Pensen
+            </ButtonLink>
+          </div>
+        </div>
+      </div>
 
       {user.lat == null ? (
         <Card className="mb-6 border-accent/30 bg-accent-soft/30">
@@ -80,8 +108,7 @@ export default async function TutorDashboardPage() {
               <div>
                 <p className="text-sm font-medium text-ink">Profil vervollständigen für Umkreissuche</p>
                 <p className="mt-0.5 text-xs text-mute">
-                  Hinterlege deine PLZ im Profil, damit wir dir offene Pensen in deiner Nähe anzeigen
-                  können.
+                  Hinterlege deine PLZ im Profil, damit wir dir offene Pensen in deiner Nähe anzeigen können.
                 </p>
               </div>
             </div>
@@ -184,6 +211,39 @@ export default async function TutorDashboardPage() {
               </Link>
             ))}
           </CardBody>
+        </Card>
+      </div>
+
+      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+        <Card className="p-4">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-ink">Arbeitsstatus</h3>
+            <Users className="h-4 w-4 text-faint" />
+          </div>
+          <div className="space-y-3">
+            <div className="flex justify-between text-sm">
+              <span className="text-mute">Aktive Verträge</span>
+              <span className="font-semibold text-ink">{activeContracts}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-mute">Stunden im Monat</span>
+              <span className="font-semibold text-ink">{minutesLabel(monthMinutes)}</span>
+            </div>
+            <div className="flex justify-between text-sm">
+              <span className="text-mute">Erwartetes Honorar</span>
+              <span className="font-semibold text-ink">{chf(monthHonorar)}</span>
+            </div>
+          </div>
+        </Card>
+
+        <Card className="p-4 lg:col-span-2">
+          <div className="mb-3 flex items-center justify-between">
+            <h3 className="text-sm font-semibold text-ink">Warum das wichtig ist</h3>
+            <MapPin className="h-4 w-4 text-faint" />
+          </div>
+          <p className="text-sm leading-relaxed text-mute">
+            Die Nähe zum Lernort, das passende Fachprofil und klare Lernziele sind die Basis für gute Nachhilfe. Ein gepflegtes Profil erhöht deine Chancen auf passende Pensen spürbar.
+          </p>
         </Card>
       </div>
     </div>

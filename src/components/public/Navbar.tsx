@@ -7,9 +7,15 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { ButtonLink, cn } from "@/components/ui";
+import { Logo } from "@/components/Logo";
 
 const NAV_LINKS = [
   { href: "/nachhilfe", label: "Fächer" },
+  { href: "/weiterbildung", label: "Weiterbildung" },
+  { href: "/microsoft", label: "Microsoft" },
+  { href: "/unternehmen", label: "Unternehmen" },
+  { href: "/azubis", label: "Azubis" },
+  { href: "/trainer", label: "Trainer" },
   { href: "/#so-funktionierts", label: "So funktioniert's" },
   { href: "/fuer-tutoren", label: "Für Tutor:innen" },
 ];
@@ -28,10 +34,11 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
-          className="font-display text-xl font-bold tracking-tight text-ink transition-opacity hover:opacity-80"
+          className="transition-opacity hover:opacity-80"
           onClick={() => setOpen(false)}
+          aria-label="Lernova Startseite"
         >
-          lernova<span className="text-accent">.ch</span>
+          <Logo size={24} className="gap-2" wordmarkClass="text-[1.1rem]" />
         </Link>
 
         {/* Desktop-Navigation */}

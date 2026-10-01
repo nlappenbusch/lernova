@@ -17,7 +17,7 @@ import {
   Wrench,
   type LucideIcon,
 } from "lucide-react";
-import { Badge, ButtonLink, Card } from "@/components/ui";
+import { Badge, ButtonLink, Card, cn } from "@/components/ui";
 import { ICT_SUBJECTS, LEVELS, SCHOOL_SUBJECTS } from "@/lib/subjects";
 import { config } from "@/lib/config";
 import { chf } from "@/lib/format";
@@ -25,6 +25,7 @@ import { SubjectIcon } from "@/components/public/SubjectIcon";
 import { Reveal } from "@/components/public/Reveal";
 import { FaqAccordion, type FaqItem } from "@/components/public/FaqAccordion";
 import { JsonLd } from "@/components/public/seo";
+import { Logo } from "@/components/Logo";
 
 const LEVEL_ICONS: Record<string, LucideIcon> = {
   lernende: Wrench,
@@ -55,6 +56,33 @@ const STEPS = [
     nr: "03",
     title: "Lernen & fair abrechnen",
     text: "Der Unterricht startet bei Ihnen vor Ort. Jede Lektion wird protokolliert — abgerechnet wird monatlich per Schweizer QR-Rechnung.",
+  },
+];
+
+const PROGRAM_TRACKS = [
+  {
+    icon: Briefcase,
+    title: "IT-Schulungen für Betriebe",
+    text: "Microsoft 365, Azure, Security, Cloud, AI und digitale Arbeitsprozesse für Mitarbeitende, Teams und Führungsfunktionen.",
+    href: "/unternehmen",
+  },
+  {
+    icon: NotebookPen,
+    title: "Weiterbildung für Mitarbeitende & Azubis",
+    text: "Praxisnahe Kurse für neue Mitarbeitende, Auszubildende und bestehende Teams — mit sauberem Lernpfad und klaren Kompetenzen.",
+    href: "/azubis",
+  },
+  {
+    icon: ShieldCheck,
+    title: "MCT & Train-the-Trainer",
+    text: "Microsoft Certified Trainer-Qualifikationen, Trainerkompetenz, Schulungsdesign und didaktische Begleitung für interne Wissensvermittlung.",
+    href: "/trainer",
+  },
+  {
+    icon: GraduationCap,
+    title: "Didaktischer Trainer",
+    text: "Methodik, Moderation, Feedback und Lernführung für Personen, die Fachwissen weitergeben und Schulungen professionell durchführen wollen.",
+    href: "/weiterbildung",
   },
 ];
 
@@ -188,6 +216,19 @@ export default function HomePage() {
     <>
       <JsonLd data={faqJsonLd} />
 
+      <section className="relative overflow-hidden bg-[#03070d] text-white">
+        <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+          <div className="flex justify-center pt-2">
+            <Logo
+              size={118}
+              dark
+              className="drop-shadow-[0_0_20px_rgba(45,74,242,0.25)]"
+              wordmarkClass="text-[4.4rem] leading-none sm:text-[7rem]"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* ===== Hero ===== */}
       <section className="hero-glow relative overflow-hidden">
         <div className="grid-pattern pointer-events-none absolute inset-0" aria-hidden />
@@ -304,6 +345,52 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ===== Zusatzangebot: Weiterbildung ===== */}
+      <section className="border-t border-edge-soft bg-slate-50/80">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">
+              Zusatzangebot
+            </p>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Mehr als Nachhilfe.
+            </h2>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {PROGRAM_TRACKS.map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.08}>
+                <Link href={item.href} className="group block h-full">
+                  <Card className="flex h-full flex-col items-start gap-4 p-6 transition-all duration-200 group-hover:-translate-y-0.5 group-hover:border-accent/30 group-hover:shadow-card-lg">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent-soft">
+                      <item.icon className="h-5 w-5 text-accent" aria-hidden />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-semibold text-ink">{item.title}</h3>
+                      <p className="mt-1.5 text-sm leading-relaxed text-mute">{item.text}</p>
+                    </div>
+                    <span className="mt-auto inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+                      Mehr erfahren
+                      <ArrowRight className="h-3.5 w-3.5" aria-hidden />
+                    </span>
+                  </Card>
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal className="mt-10 text-center">
+            <Link
+              href="/weiterbildung"
+              className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-white px-5 py-2.5 text-sm font-medium text-accent transition hover:-translate-y-0.5 hover:border-accent hover:shadow-card"
+            >
+              Weiterbildungs-Portfolio ansehen
+              <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ===== So funktioniert's ===== */}
       <section id="so-funktionierts" className="grid-pattern border-t border-edge-soft bg-card">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
@@ -377,6 +464,126 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ===== Service-Trust ===== */}
+      <section className="border-t border-edge-soft bg-slate-50/80">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Vollständiger Service</p>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Alles aus einer Hand — von der Anfrage bis zur Abrechnung.
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                icon: MapPin,
+                title: "Lokaler Match",
+                text: "Wir finden Lehrpersonen in der Nähe, damit Lernende schnell und unkompliziert starten können.",
+              },
+              {
+                icon: NotebookPen,
+                title: "Transparente Dokumentation",
+                text: "Stunden, Lernziele und erarbeitete Inhalte werden sauber dokumentiert und nachvollziehbar gemacht.",
+              },
+              {
+                icon: QrCode,
+                title: "Einfaches Finanzsystem",
+                text: "Monatlich klar abgerechnet mit Schweizer QR-Rechnung — ohne Verwirrung und ohne Abo-Dschungel.",
+              },
+            ].map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.08}>
+                <Card className="flex h-full flex-col p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-lg">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
+                    <item.icon className="h-5 w-5" aria-hidden />
+                  </div>
+                  <h3 className="mt-5 text-base font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mute">{item.text}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Vergleich / Trust ===== */}
+      <section className="border-t border-edge-soft bg-card">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Vergleich</p>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Marktplatz, Lernstudio oder Lernova?
+            </h2>
+          </Reveal>
+
+          <div className="mt-10 overflow-hidden rounded-2xl border border-edge-soft bg-card shadow-card">
+            <div className="grid gap-px bg-edge-soft md:grid-cols-3">
+              {[
+                { label: "Marktplatz" },
+                { label: "Lernstudio" },
+                { label: "Lernova" },
+              ].map((column) => (
+                <div key={column.label} className="bg-card p-4">
+                  <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-faint">
+                    Modell
+                  </p>
+                  <p className="mt-2 text-base font-semibold text-ink">{column.label}</p>
+                </div>
+              ))}
+            </div>
+            <div className="grid gap-px bg-edge-soft md:grid-cols-3">
+              <div className="bg-card p-4 text-sm text-mute">Sie wählen selbst die Lehrperson, aber ohne strukturierte Begleitung.</div>
+              <div className="bg-card p-4 text-sm text-mute">Ein Institut stellt oft eine Kleingruppe zusammen — weniger individuell.</div>
+              <div className="bg-card p-4 text-sm text-mute">Wir matchen mit persönlicher Beratung, Lernpfad und lokaler Unterstützung.</div>
+            </div>
+            <div className="grid gap-px bg-edge-soft md:grid-cols-3">
+              <div className="bg-card p-4 text-sm text-mute">Der Ablauf ist oft unklar und die Qualität schwankt stark.</div>
+              <div className="bg-card p-4 text-sm text-mute">Stellen sind breit, der Lernfortschritt ist weniger sichtbar.</div>
+              <div className="bg-card p-4 text-sm text-mute">Lernziele, Tempo und Begleitung bleiben klar, nachvollziehbar und transparent.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== Der Einstieg ===== */}
+      <section className="border-t border-edge-soft bg-slate-50/80">
+        <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
+          <Reveal className="text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-accent">Der Einstieg</p>
+            <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
+              Kinderleicht. Klar. Erfolgsorientiert.
+            </h2>
+          </Reveal>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+            {[
+              {
+                title: "1. Anfrage stellen",
+                text: "Ein paar Angaben zu Fach, Stufe und PLZ reichen — schnell und ohne Aufwand.",
+              },
+              {
+                title: "2. Strategiegespräch",
+                text: "Wir klären Lernziel, Lernart und passende Begleitung — ganz individuell und praxisnah.",
+              },
+              {
+                title: "3. Start mit Match",
+                text: "Die passende Lehrperson startet, die Lernziele werden sichtbar und der Fortschritt wird begleitet.",
+              },
+            ].map((item, i) => (
+              <Reveal key={item.title} delay={i * 0.08}>
+                <Card className="h-full p-6">
+                  <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent">
+                    {i + 1}
+                  </span>
+                  <h3 className="mt-4 text-base font-semibold text-ink">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-mute">{item.text}</p>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ===== USPs ===== */}
       <section className="grid-pattern border-t border-edge-soft bg-card">
         <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24">
@@ -445,7 +652,7 @@ export default function HomePage() {
                 <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
                   <Link
                     href="/anfrage"
-                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg bg-white px-6 py-3 text-base font-medium text-accent-deep shadow-card transition-all duration-150 hover:-translate-y-px hover:bg-white/90"
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-white px-6 py-3 text-base font-semibold text-accent-deep shadow-card transition-all duration-150 hover:-translate-y-px hover:bg-white/95 hover:shadow-card-lg"
                   >
                     Jetzt Nachhilfe anfragen
                     <ArrowRight className="h-4 w-4" aria-hidden />

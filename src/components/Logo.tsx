@@ -1,41 +1,41 @@
-// Lernova Logo — Marke: aufsteigender Lernpfad mit Wegpunkt (Umkreis-Matching
-// + Fortschritt). Ueberall dieses Logo verwenden (Navbar, Footer, Shells, Login).
+// Logo-Grafik in der von der Referenz vorgegebenen Form.
+// Kein eigenes Interpretationsdesign; nur die geeignete, klare Brand-Graphic.
 
 import { cn } from "@/components/ui";
 
-export function LogoMark({ size = 28, className }: { size?: number; className?: string }) {
+export function LogoMark({
+  size = 28,
+  className,
+  dark = false,
+}: {
+  size?: number;
+  className?: string;
+  dark?: boolean;
+}) {
+  const iconBlue = dark ? "#2d4af2" : "#2d4af2";
+  const iconTeal = dark ? "#3ce0cf" : "#3ce0cf";
+  const wordBlue = dark ? "#2d4af2" : "#1d2c64";
+
   return (
     <svg
       width={size}
-      height={size}
-      viewBox="0 0 32 32"
+      height={size * 0.7}
+      viewBox="0 0 200 140"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-hidden="true"
     >
-      <defs>
-        <linearGradient id="lernova-mark" x1="0" y1="32" x2="32" y2="0" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#4f46e5" />
-          <stop offset="0.6" stopColor="#6d5ae8" />
-          <stop offset="1" stopColor="#7c3aed" />
-        </linearGradient>
-      </defs>
-      <rect width="32" height="32" rx="8.5" fill="url(#lernova-mark)" />
-      {/* aufsteigender Lernpfad */}
       <path
-        d="M7.5 23.5 L13 18 L17 21 L24 12.5"
-        stroke="white"
-        strokeWidth="2.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
+        d="M34 12C34 8.7 36.7 6 40 6H116C146.9 6 172 31.1 172 62C172 92.9 146.9 118 116 118H87V125C87 128.3 84.3 131 81 131H40C36.7 131 34 128.3 34 125V12Z"
+        fill={iconBlue}
       />
-      {/* Wegpunkt am Ziel */}
-      <circle cx="24" cy="12.5" r="2.9" fill="white" />
-      <circle cx="24" cy="12.5" r="1.15" fill="#7c3aed" />
-      {/* Startpunkt */}
-      <circle cx="7.5" cy="23.5" r="1.5" fill="white" fillOpacity="0.85" />
+      <path d="M75 32H122C134.2 32 144 41.8 144 54C144 66.2 134.2 76 122 76H75V32Z" fill={iconTeal} />
+      <path d="M87 41H111V90H87V41Z" fill={wordBlue} opacity="0.18" />
+      <path d="M98 52L119 75" stroke="rgba(255,255,255,0.9)" strokeWidth="8" strokeLinecap="round" />
+      <path d="M120 75L143 52" stroke="rgba(255,255,255,0.9)" strokeWidth="8" strokeLinecap="round" />
+      <circle cx="143" cy="52" r="8" fill="white" />
+      <circle cx="143" cy="52" r="3.2" fill={wordBlue} />
     </svg>
   );
 }
@@ -44,17 +44,20 @@ export function Logo({
   size = 28,
   className,
   wordmarkClass,
+  dark = false,
 }: {
   size?: number;
   className?: string;
   wordmarkClass?: string;
+  dark?: boolean;
 }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <LogoMark size={size} />
+    <span className={cn("inline-flex items-center gap-3", className)}>
+      <LogoMark size={size} dark={dark} />
       <span
         className={cn(
-          "font-display text-lg font-bold tracking-tight text-ink",
+          "font-display font-bold tracking-[-0.09em]",
+          dark ? "text-[#2d4af2]" : "text-[#1d2c64]",
           wordmarkClass
         )}
       >
