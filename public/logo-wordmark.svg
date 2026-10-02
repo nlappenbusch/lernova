@@ -1,0 +1,21 @@
+<svg width="900" height="220" viewBox="0 0 900 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="wmBlue" x1="18" y1="12" x2="170" y2="160" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2D4AF2"/>
+      <stop offset="1" stop-color="#4968FF"/>
+    </linearGradient>
+    <linearGradient id="wmMint" x1="94" y1="30" x2="164" y2="110" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4DE1D3"/>
+      <stop offset="1" stop-color="#31D9C8"/>
+    </linearGradient>
+  </defs>
+
+  <path d="M33 12C33 8.68629 35.6863 6 39 6H114C149.346 6 178 34.6538 178 70C178 105.346 149.346 134 114 134H84V146C84 149.314 81.3137 152 78 152H39C35.6863 152 33 149.314 33 146V12Z" fill="url(#wmBlue)"/>
+  <path d="M73 32H121C135.359 32 147 43.6406 147 58C147 72.3594 135.359 84 121 84H73V32Z" fill="url(#wmMint)"/>
+  <path d="M100 47L125 75" stroke="rgba(255,255,255,0.96)" stroke-width="8" stroke-linecap="round"/>
+  <path d="M125 75L150 50" stroke="rgba(255,255,255,0.96)" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="150" cy="50" r="11" fill="white"/>
+  <circle cx="150" cy="50" r="4.5" fill="#1B2A6A"/>
+
+  <text x="205" y="118" fill="#1D2C64" font-family="Segoe UI, Arial, sans-serif" font-size="96" font-weight="700" letter-spacing="-4">lernova</text>
+</svg>
